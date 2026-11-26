@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+# Chaves geradas localmente NUNCA devem ser versionadas
+*.pem
+*.sig

@@ -1,0 +1,68 @@
+# Evidencias de execucao (geradas automaticamente)
+
+test_TI04_assinar_e_verificar (test_seguranca.TestAssinatura.test_TI04_assinar_e_verificar) ... ok
+test_TI05_arquivo_alterado_apos_assinatura (test_seguranca.TestAssinatura.test_TI05_arquivo_alterado_apos_assinatura) ... ok
+test_TI06_outra_chave_publica (test_seguranca.TestAssinatura.test_TI06_outra_chave_publica) ... ok
+test_arquivo_inexistente (test_seguranca.TestAssinatura.test_arquivo_inexistente) ... ok
+test_assinatura_corrompida (test_seguranca.TestAssinatura.test_assinatura_corrompida) ... ok
+test_assinatura_sem_prehash (test_seguranca.TestAssinatura.test_assinatura_sem_prehash)
+test_assinatura_tamanho_errado (test_seguranca.TestAssinatura.test_assinatura_tamanho_errado) ... ok
+test_chave_incompativel_rsa (test_seguranca.TestAssinatura.test_chave_incompativel_rsa) ... ok
+test_chave_inexistente (test_seguranca.TestAssinatura.test_chave_inexistente) ... ok
+test_chave_pem_invalida (test_seguranca.TestAssinatura.test_chave_pem_invalida) ... ok
+test_chave_trocada_de_papel (test_seguranca.TestAssinatura.test_chave_trocada_de_papel) ... ok
+test_comando_desconhecido (test_seguranca.TestCLI.test_comando_desconhecido) ... ok
+test_sem_argumentos (test_seguranca.TestCLI.test_sem_argumentos) ... ok
+test_TI03_gera_pem_validos (test_seguranca.TestChaves.test_TI03_gera_pem_validos) ... ok
+test_chave_privada_permissao_restrita (test_seguranca.TestChaves.test_chave_privada_permissao_restrita) ... ok
+test_keygen_nao_sobrescreve_sem_force (test_seguranca.TestChaves.test_keygen_nao_sobrescreve_sem_force) ... ok
+test_TI01_hash_correto (test_seguranca.TestHash.test_TI01_hash_correto) ... ok
+test_TI02_arquivo_modificado_diverge (test_seguranca.TestHash.test_TI02_arquivo_modificado_diverge) ... ok
+test_check_aceita_maiusculas (test_seguranca.TestHash.test_check_aceita_maiusculas) ... ok
+test_check_correto (test_seguranca.TestHash.test_check_correto) ... ok
+test_check_referencia_malformada (test_seguranca.TestHash.test_check_referencia_malformada) ... ok
+test_hash_arquivo_inexistente (test_seguranca.TestHash.test_hash_arquivo_inexistente) ... ok
+test_hash_diretorio (test_seguranca.TestHash.test_hash_diretorio) ... ok
+test_hash_vetor_conhecido (test_seguranca.TestHash.test_hash_vetor_conhecido) ... ok
+Ran 24 tests in 2.893s
+OK
+
+# Demonstracao manual
+$ seguranca keygen priv.pem pub.pem
+Chave privada gravada em: priv.pem
+Chave publica gravada em: pub.pem
+ATENCAO: mantenha a chave privada em sigilo.
+[codigo de saida: 0]
+
+$ seguranca hash documento.txt
+e28f37b380dfba7075ce7f5c06c4f35e0a6d2d532d6483b6c12a8ec07daca1a0
+[codigo de saida: 0]
+
+$ seguranca check documento.txt e28f37b380dfba7075ce7f5c06c4f35e0a6d2d532d6483b6c12a8ec07daca1a0
+HASH VALIDO: o hash do arquivo corresponde a referencia.
+SHA-256: e28f37b380dfba7075ce7f5c06c4f35e0a6d2d532d6483b6c12a8ec07daca1a0
+[codigo de saida: 0]
+
+$ seguranca sign documento.txt priv.pem a.sig
+Assinatura (64 bytes) gravada em: a.sig
+[codigo de saida: 0]
+
+$ seguranca verify documento.txt pub.pem a.sig
+ASSINATURA VALIDA: o arquivo e autentico e nao foi alterado.
+[codigo de saida: 0]
+
+# (arquivo adulterado apos a assinatura)
+$ seguranca check documento.txt e28f37b380dfba7075ce7f5c06c4f35e0a6d2d532d6483b6c12a8ec07daca1a0
+HASH DIVERGENTE: o hash do arquivo NAO corresponde a referencia.
+Calculado:  13c2c266dd1b5112aa6974f0de01fcb8f00bf5008e926ccaa70998035e85686b
+Referencia: e28f37b380dfba7075ce7f5c06c4f35e0a6d2d532d6483b6c12a8ec07daca1a0
+[codigo de saida: 1]
+
+$ seguranca verify documento.txt pub.pem a.sig
+ASSINATURA INVALIDA: arquivo adulterado, chave incorreta ou assinatura corrompida.
+[codigo de saida: 1]
+
+$ seguranca hash inexistente.txt
+Erro: arquivo nao encontrado: 'inexistente.txt'
+[codigo de saida: 2]
+
