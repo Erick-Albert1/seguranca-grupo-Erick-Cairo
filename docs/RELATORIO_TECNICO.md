@@ -1,7 +1,7 @@
 # Relatório Técnico — Etapa 1
 
 ## 7.1 Identificação
-- **Integrantes:** <ERICK ALBERT> · <CAIRO JOSÉ> 
+- **Integrantes:** ERICK ALBERT · CAIRO JOSÉ
 - **Turma:** <TURMA V>
 - **Linguagem:** Python 3.12
 - **Repositório:** <https://github.com/Erick-Albert1/seguranca-grupo-Erick-Cairo.git> (tag `v1.0-entrega`)
